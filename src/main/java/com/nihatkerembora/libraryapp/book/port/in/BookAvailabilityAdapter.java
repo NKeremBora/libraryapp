@@ -7,6 +7,7 @@ import com.nihatkerembora.libraryapp.book.model.entity.Book;
 import com.nihatkerembora.libraryapp.book.model.enums.Status;
 import com.nihatkerembora.libraryapp.book.reactive.AvailabilityPublisher;
 import com.nihatkerembora.libraryapp.book.repository.BookRepository;
+import com.nihatkerembora.libraryapp.borrow.port.out.BookAvailabilityPort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
@@ -15,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Component
 @RequiredArgsConstructor
-class BookAvailabilityAdapter   {
+class BookAvailabilityAdapter implements BookAvailabilityPort {
     private final BookRepository bookRepo;
     private final AvailabilityPublisher publisher;
 
