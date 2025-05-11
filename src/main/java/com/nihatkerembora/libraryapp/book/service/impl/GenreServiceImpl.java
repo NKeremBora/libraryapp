@@ -36,7 +36,7 @@ public class GenreServiceImpl implements GenreService {
 
     @Override
     @Transactional(readOnly = true)
-    public GenreResponse get(UUID id) {
+    public GenreResponse get(String id) {
         Genre genre = repository.findById(id)
                 .orElseThrow(() -> new GenreNotFoundException(id));
         return mapper.toDto(genre);
@@ -50,7 +50,7 @@ public class GenreServiceImpl implements GenreService {
     }
 
     @Override
-    public GenreResponse update(UUID id, GenreUpdateRequest request) {
+    public GenreResponse update(String id, GenreUpdateRequest request) {
         Genre genre = repository.findById(id)
                 .orElseThrow(() -> new GenreNotFoundException(id));
         mapper.updateEntity(genre, request);
@@ -59,7 +59,7 @@ public class GenreServiceImpl implements GenreService {
     }
 
     @Override
-    public void delete(UUID id) {
+    public void delete(String id) {
         Genre genre = repository.findById(id)
                 .orElseThrow(() -> new GenreNotFoundException(id));
         if (bookRepo.existsByGenres_Id(id)) {

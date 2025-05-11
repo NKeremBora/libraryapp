@@ -3,13 +3,13 @@ package com.nihatkerembora.libraryapp.book.model.dto.request;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
+import lombok.Builder;
 import lombok.Data;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.UUID;
 
+@Builder
 @Data
 public class BookCreateRequest {
 
@@ -25,7 +25,6 @@ public class BookCreateRequest {
     @NotNull
     private LocalDate publicationDate;
 
-    @NotNull
-    @Size(min = 1, message = "At least one genre must be specified")
-    private List<UUID> genreIds;
+
+    private List<String> genreIds;
 }

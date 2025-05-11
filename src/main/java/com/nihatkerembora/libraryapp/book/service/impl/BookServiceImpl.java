@@ -13,7 +13,7 @@ import com.nihatkerembora.libraryapp.book.model.entity.Book;
 import com.nihatkerembora.libraryapp.book.model.entity.Genre;
 import com.nihatkerembora.libraryapp.book.model.enums.Status;
 import com.nihatkerembora.libraryapp.book.model.mapper.BookMapper;
-import com.nihatkerembora.libraryapp.book.reactive.AvailabilityPublisher;
+import com.nihatkerembora.libraryapp.book.publisher.AvailabilityPublisher;
 import com.nihatkerembora.libraryapp.book.repository.BookRepository;
 import com.nihatkerembora.libraryapp.book.repository.GenreRepository;
 import com.nihatkerembora.libraryapp.book.service.BookService;
@@ -31,7 +31,6 @@ import org.springframework.util.StringUtils;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -53,10 +52,10 @@ public class BookServiceImpl implements BookService {
         // Bulk fetch genres by IDs (single query)
         List<Genre> genresList = genreRepo.findAllById(req.getGenreIds());
         if (genresList.size() != req.getGenreIds().size()) {
-            Set<UUID> foundIds = genresList.stream()
+            Set<String> foundIds = genresList.stream()
                     .map(Genre::getId)
                     .collect(Collectors.toSet());
-            UUID missing = req.getGenreIds().stream()
+            String missing = req.getGenreIds().stream()
                     .filter(id -> !foundIds.contains(id))
                     .findFirst()
                     .orElseThrow();
@@ -74,7 +73,7 @@ public class BookServiceImpl implements BookService {
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
     public BookResponse get(String id) {
         Book book = bookRepo.findByIdAndStatusNot(id, Status.DELETED)
-                .orElseThrow(() -> new BookNotFoundException(id));
+                .orElseThrow(() -> new BookNotFoundException(id.toString()));
         return mapper.toDto(book);
     }
 
@@ -116,7 +115,7 @@ public class BookServiceImpl implements BookService {
     @Override
     public BookResponse update(String id, BookUpdateRequest req) {
         Book existing = bookRepo.findByIdAndStatusNot(id, Status.DELETED)
-                .orElseThrow(() -> new BookNotFoundException(id));
+                .orElseThrow(() -> new BookNotFoundException(id.toString()));
         // ISBN conflict check
         if (!existing.getIsbn().equals(req.getIsbn()) &&
                 bookRepo.existsByIsbnAndStatusNot(req.getIsbn(), Status.DELETED)) {
@@ -125,10 +124,10 @@ public class BookServiceImpl implements BookService {
         // Bulk fetch new genres
         List<Genre> genresList = genreRepo.findAllById(req.getGenreIds());
         if (genresList.size() != req.getGenreIds().size()) {
-            Set<UUID> foundIds = genresList.stream()
+            Set<String> foundIds = genresList.stream()
                     .map(Genre::getId)
                     .collect(Collectors.toSet());
-            UUID missing = req.getGenreIds().stream()
+            String missing = req.getGenreIds().stream()
                     .filter(gid -> !foundIds.contains(gid))
                     .findFirst()
                     .orElseThrow();
@@ -163,9 +162,9 @@ public class BookServiceImpl implements BookService {
     @Transactional
     public boolean markBorrowed(String id) {
         Book book = bookRepo.findById(id)
-                .orElseThrow(() -> new BookNotFoundException(id));
+                .orElseThrow(() -> new BookNotFoundException(id.toString()));
         bookRepo.updateStatus(id, Status.BORROWED);
-        publisher.publish(new AvailabilityEvent(id, book.getTitle(), Status.BORROWED));
+        publisher.publish(new AvailabilityEvent(id.toString(), book.getTitle(), Status.BORROWED));
 
         return true;
     }
@@ -174,9 +173,9 @@ public class BookServiceImpl implements BookService {
     @Transactional
     public boolean markAvailable(String id) {
         Book book = bookRepo.findById(id)
-                .orElseThrow(() -> new BookNotFoundException(id));
+                .orElseThrow(() -> new BookNotFoundException(id.toString()));
         bookRepo.updateStatus(id, Status.AVAILABLE);
-        publisher.publish(new AvailabilityEvent(id, book.getTitle(), Status.AVAILABLE));
+        publisher.publish(new AvailabilityEvent(id.toString(), book.getTitle(), Status.AVAILABLE));
 
         return true;
     }

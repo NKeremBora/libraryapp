@@ -9,31 +9,31 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     volumes:
-      - ./db:/var/lib/postgresql/data
+      - postgres-data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
     networks:
       - libraryNetwork
 
-#  libraryapp:
-#    image: 'libraryapp:latest'
-#    build:
-#      context: .
-#      dockerfile: Dockerfile
-#    container_name: libraryapp
-#    restart: on-failure
-#    ports:
-#      - "8080:8080"
-#    environment:
-#      - server.port=4110
-#      - spring.datasource.username=postgres
-#      - spring.datasource.password=postgres
-#      - spring.datasource.url=jdbc:postgresql://database:5432/librarydb
-#    depends_on:
-#      - database
-#      - sonarqube
-#    networks:
-#      - libraryNetwork
+  libraryapp:
+    image: 'libraryapp:latest'
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: libraryapp
+    restart: on-failure
+    ports:
+      - "8080:8080"
+    environment:
+      - server.port=8080
+      - server.address=0.0.0.0
+      - spring.datasource.username=postgres
+      - spring.datasource.password=postgres
+      - spring.datasource.url=jdbc:postgresql://database:5432/librarydb
+    depends_on:
+      - database
+    networks:
+      - libraryNetwork
 
   prometheus:
     image: prom/prometheus:latest
@@ -56,10 +56,14 @@ services:
     ports:
       - "3000:3000"
     volumes:
-      - ./data/grafana:/var/lib/grafana
+      - ./data/grafana/data:/var/lib/grafana/data
+      - ./data/grafana/dashboards:/var/lib/grafana/dashboards
+      - ./data/grafana/provisioning:/etc/grafana/provisioning
     environment:
-      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin123!
       - GF_SERVER_DOMAIN=localhost
+    depends_on:
+      - prometheus
     networks:
       - libraryNetwork
 
@@ -74,25 +78,9 @@ services:
     networks:
       - libraryNetwork
 
-  sonarqube:
-    image: sonarqube:latest
-    container_name: sonarqube
-    restart: always
-    ports:
-      - "9000:9000"
-    volumes:
-      - sonarqube_data:/opt/sonarqube/data
-      - sonarqube_extensions:/opt/sonarqube/extensions
-      - sonarqube_logs:/opt/sonarqube/logs
-    depends_on:
-      - database
-    networks:
-      - libraryNetwork
 
 volumes:
-  sonarqube_data:
-  sonarqube_extensions:
-  sonarqube_logs:
+  postgres-data:
 
 networks:
   libraryNetwork:

@@ -3,6 +3,7 @@ package com.nihatkerembora.libraryapp.common.model.dto.response;
 import com.nihatkerembora.libraryapp.common.model.CustomPage;
 import lombok.Builder;
 import lombok.Getter;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
@@ -47,6 +48,26 @@ public class CustomPagingResponse<T> {
                     .totalPageCount(customPage.getTotalPageCount());
         }
 
+    }
+
+    public static <T> CustomPagingResponse<T> from(final Page<T> page) {
+        return CustomPagingResponse.<T>builder()
+                .content(page.getContent())
+                .pageNumber(page.getNumber())
+                .pageSize(page.getSize())
+                .totalElementCount(page.getTotalElements())
+                .totalPageCount(page.getTotalPages())
+                .build();
+    }
+
+    public static <T> CustomPagingResponse<T> from(final CustomPage<T> customPage) {
+        return CustomPagingResponse.<T>builder()
+                .content(customPage.getContent())
+                .pageNumber(customPage.getPageNumber())
+                .pageSize(customPage.getPageSize())
+                .totalElementCount(customPage.getTotalElementCount())
+                .totalPageCount(customPage.getTotalPageCount())
+                .build();
     }
 
 }

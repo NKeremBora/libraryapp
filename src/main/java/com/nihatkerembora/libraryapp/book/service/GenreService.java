@@ -6,8 +6,6 @@ import com.nihatkerembora.libraryapp.book.model.dto.response.GenreResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import java.util.UUID;
-
 /**
  * Service interface for managing genres in the library system.
  * Provides operations to create, retrieve, list, update, and delete genres.
@@ -28,7 +26,7 @@ public interface GenreService {
      * @param id the UUID of the genre.
      * @return the {@link GenreResponse} of the found genre.
      */
-    GenreResponse get(UUID id);
+    GenreResponse get(String id);
 
     /**
      * Lists all genres with pagination support.
@@ -45,7 +43,7 @@ public interface GenreService {
      * @param request the {@link GenreUpdateRequest} containing updated genre details.
      * @return the updated {@link GenreResponse}.
      */
-    GenreResponse update(UUID id, GenreUpdateRequest request);
+    GenreResponse update(String id, GenreUpdateRequest request);
 
     /**
      * Deletes a genre by its ID.
@@ -54,5 +52,5 @@ public interface GenreService {
      *
      * @param id the UUID of the genre to delete.
      */
-    void delete(UUID id);
+    void delete(String id);
 }

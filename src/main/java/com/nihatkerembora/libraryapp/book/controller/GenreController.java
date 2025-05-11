@@ -5,6 +5,7 @@ import com.nihatkerembora.libraryapp.book.model.dto.request.GenreCreateRequest;
 import com.nihatkerembora.libraryapp.book.model.dto.request.GenreUpdateRequest;
 import com.nihatkerembora.libraryapp.book.model.dto.response.GenreResponse;
 import com.nihatkerembora.libraryapp.book.service.GenreService;
+import com.nihatkerembora.libraryapp.common.model.dto.response.CustomPagingResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.Valid;
@@ -12,10 +13,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/genres")
@@ -39,6 +40,7 @@ public class GenreController {
                     @ApiResponse(responseCode = "409", description = "Genre with same name already exists")
             }
     )
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @PostMapping
     public ResponseEntity<GenreResponse> createGenre(
             @Valid @RequestBody GenreCreateRequest request) {
@@ -62,7 +64,7 @@ public class GenreController {
             }
     )
     @GetMapping("/{id}")
-    public ResponseEntity<GenreResponse> getGenre(@PathVariable UUID id) {
+    public ResponseEntity<GenreResponse> getGenre(@PathVariable String id) {
         return ResponseEntity.ok(genreService.get(id));
     }
 
@@ -81,14 +83,16 @@ public class GenreController {
             }
     )
     @GetMapping
-    public ResponseEntity<Page<GenreResponse>> listGenres(Pageable pageable) {
-        return ResponseEntity.ok(genreService.list(pageable));
+    public ResponseEntity<CustomPagingResponse<GenreResponse>> listGenres(Pageable pageable) {
+        Page<GenreResponse> page = genreService.list(pageable);
+        CustomPagingResponse<GenreResponse> response = CustomPagingResponse.from(page);
+        return ResponseEntity.ok(response);
     }
 
     /**
      * Updates an existing genre.
      *
-     * @param id The UUID of the genre to update.
+     * @param id The String of the genre to update.
      * @param request The {@link GenreUpdateRequest} with new genre details.
      * @return The updated {@link GenreResponse}.
      */
@@ -100,9 +104,10 @@ public class GenreController {
                     @ApiResponse(responseCode = "404", description = "Genre not found")
             }
     )
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<GenreResponse> updateGenre(
-            @PathVariable UUID id,
+            @PathVariable String id,
             @Valid @RequestBody GenreUpdateRequest request) {
         return ResponseEntity.ok(genreService.update(id, request));
     }
@@ -110,7 +115,7 @@ public class GenreController {
     /**
      * Deletes a genre by its ID.
      *
-     * @param id The UUID of the genre.
+     * @param id The String of the genre.
      * @return No content response.
      */
     @Operation(
@@ -122,8 +127,9 @@ public class GenreController {
                     @ApiResponse(responseCode = "400", description = "Genre is still in use and cannot be deleted")
             }
     )
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteGenre(@PathVariable UUID id) {
+    public ResponseEntity<Void> deleteGenre(@PathVariable String id) {
         genreService.delete(id);
         return ResponseEntity.noContent().build();
     }

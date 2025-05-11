@@ -9,6 +9,7 @@ import com.nihatkerembora.libraryapp.book.repository.GenreRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Profile;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,6 +24,7 @@ import java.util.stream.Collectors;
 @Component
 @Order(2)
 @RequiredArgsConstructor
+@Profile("!test")
 @Slf4j
 public class BookDataInitializer implements CommandLineRunner {
 
@@ -43,7 +45,7 @@ public class BookDataInitializer implements CommandLineRunner {
                             .isbn("9780451524935")
                             .publicationDate(LocalDate.of(1949, 6, 8))
                             .genres(Set.of(genreMap.get("Science Fiction"), genreMap.get("Fiction")))
-                            .status(Status.AVAILABLE)
+                            .status(Status.BORROWED)
                             .build(),
 
                     Book.builder()
@@ -52,7 +54,7 @@ public class BookDataInitializer implements CommandLineRunner {
                             .isbn("9780061120084")
                             .publicationDate(LocalDate.of(1960, 7, 11))
                             .genres(Set.of(genreMap.get("Fiction")))
-                            .status(Status.AVAILABLE)
+                            .status(Status.BORROWED)
                             .build(),
 
                     Book.builder()

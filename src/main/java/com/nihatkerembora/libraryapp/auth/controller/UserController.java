@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-@RequestMapping("api/v1/users")
+@RequestMapping("/api/v1/users")
 @RequiredArgsConstructor
 @Tag(name = "User Management", description = "Handles user management, including creation, updates, and soft-deletion.")
 public class UserController {
@@ -40,7 +40,7 @@ public class UserController {
                     @ApiResponse(responseCode = "404", description = "User not found")
             }
     )
-    @PreAuthorize("@securityService.canAccessUser(authentication, #id)")
+//    @PreAuthorize("@securityService.canAccessUser(authentication, #id)")
     @GetMapping("/{id}")
     public CustomResponse<UserResponse> getUser(@PathVariable String id,
                                                 @RequestParam(defaultValue = "false") boolean includeDeleted) {

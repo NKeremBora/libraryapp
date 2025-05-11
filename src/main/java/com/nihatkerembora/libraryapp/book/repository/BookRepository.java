@@ -11,7 +11,6 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
-import java.util.UUID;
 
 @Repository
 public interface BookRepository extends JpaRepository<Book, String>, JpaSpecificationExecutor<Book> {
@@ -59,5 +58,5 @@ public interface BookRepository extends JpaRepository<Book, String>, JpaSpecific
      * @param genreId the ID of the genre.
      * @return true if any book uses this genre, false otherwise.
      */
-    boolean existsByGenres_Id(UUID genreId);
+    boolean existsByGenres_Id(String genreId);
 }

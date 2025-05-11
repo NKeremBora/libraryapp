@@ -2,8 +2,6 @@ package com.nihatkerembora.libraryapp.book.exception;
 
 import org.springframework.http.HttpStatus;
 
-import java.util.UUID;
-
 public class GenreInUseException extends RuntimeException {
 
     public static final HttpStatus STATUS = HttpStatus.BAD_REQUEST;
@@ -14,7 +12,7 @@ public class GenreInUseException extends RuntimeException {
         super(DEFAULT_MESSAGE);
     }
 
-    public GenreInUseException(final UUID message) {
+    public GenreInUseException(final String message) {
         super(DEFAULT_MESSAGE + " " + message);
     }
 }

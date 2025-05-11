@@ -10,9 +10,7 @@ public class UserNotFoundException extends RuntimeException {
 
     public static final HttpStatus STATUS = HttpStatus.NOT_FOUND;
 
-    private static final String DEFAULT_MESSAGE = """
-            User not found!
-            """;
+    private static final String DEFAULT_MESSAGE = "User not found!";
 
     /**
      * Constructs a {@code UserNotFoundException} with a default message.

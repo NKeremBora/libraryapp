@@ -2,8 +2,6 @@ package com.nihatkerembora.libraryapp.book.exception;
 
 import org.springframework.http.HttpStatus;
 
-import java.util.UUID;
-
 public class GenreNotFoundException extends RuntimeException {
 
     public static final HttpStatus STATUS = HttpStatus.NOT_FOUND;
@@ -14,7 +12,7 @@ public class GenreNotFoundException extends RuntimeException {
         super(DEFAULT_MESSAGE);
     }
 
-    public GenreNotFoundException(final UUID message) {
+    public GenreNotFoundException(final String message) {
         super(DEFAULT_MESSAGE + " " + message);
     }
 }

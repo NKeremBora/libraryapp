@@ -8,8 +8,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
-import java.util.UUID;
-
 
 @Entity
 @Getter
@@ -21,8 +19,9 @@ import java.util.UUID;
 public class Genre extends BaseEntity {
 
     @Id
-    @GeneratedValue
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name = "ID")
+    private String id;
 
     @Column(unique = true, nullable = false, length = 50)
     private String name;

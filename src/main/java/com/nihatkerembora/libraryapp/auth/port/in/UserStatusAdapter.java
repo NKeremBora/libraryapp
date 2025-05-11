@@ -4,7 +4,7 @@ import com.nihatkerembora.libraryapp.auth.exception.UserNotFoundException;
 import com.nihatkerembora.libraryapp.auth.model.entity.UserEntity;
 import com.nihatkerembora.libraryapp.auth.model.enums.UserStatus;
 import com.nihatkerembora.libraryapp.auth.repository.UserRepository;
-import com.nihatkerembora.libraryapp.borrow.port.out.UserStatusPort;
+import com.nihatkerembora.libraryapp.borrowing.port.out.UserStatusPort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

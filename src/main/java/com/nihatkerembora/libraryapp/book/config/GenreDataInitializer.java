@@ -6,6 +6,7 @@ import com.nihatkerembora.libraryapp.book.repository.GenreRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Profile;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,6 +16,7 @@ import java.util.List;
 @Component
 @Order(1)
 @RequiredArgsConstructor
+@Profile("!test")
 @Slf4j
 public class GenreDataInitializer implements CommandLineRunner {
 

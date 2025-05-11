@@ -43,33 +43,34 @@ public class CustomBearerTokenAuthenticationFilter extends OncePerRequestFilter 
  * @throws ServletException if filter chain processing fails
  * @throws IOException      if an I/O error occurs
  */
-@Override
-protected void doFilterInternal(@NonNull final HttpServletRequest httpServletRequest,
-                                @NonNull final HttpServletResponse httpServletResponse,
-                                @NonNull final FilterChain filterChain) throws ServletException, IOException {
+    @Override
+    protected void doFilterInternal(@NonNull final HttpServletRequest httpServletRequest,
+                                    @NonNull final HttpServletResponse httpServletResponse,
+                                    @NonNull final FilterChain filterChain) throws ServletException, IOException {
 
-    log.debug("API Request was secured with Security!");
+        log.debug("API Request was secured with Security!");
 
-    final String authorizationHeader = httpServletRequest.getHeader(HttpHeaders.AUTHORIZATION);
+        final String authorizationHeader = httpServletRequest.getHeader(HttpHeaders.AUTHORIZATION);
 
-    if (Token.isBearerToken(authorizationHeader)) {
+        if (Token.isBearerToken(authorizationHeader)) {
 
-        final String jwt = Token.getJwt(authorizationHeader);
+            final String jwt = Token.getJwt(authorizationHeader);
 
-        tokenService.verifyAndValidate(jwt);
+            tokenService.verifyAndValidate(jwt);
 
-        final String tokenId = tokenService.getId(jwt);
+            final String tokenId = tokenService.getId(jwt);
 
-        invalidTokenService.checkForInvalidityOfToken(tokenId);
+            invalidTokenService.checkForInvalidityOfToken(tokenId);
 
-        final UsernamePasswordAuthenticationToken authentication = tokenService
-                .getAuthentication(jwt);
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+            final UsernamePasswordAuthenticationToken authentication = tokenService
+                    .getAuthentication(jwt);
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            log.debug(">> AFTER CONTEXT SET: {}", SecurityContextHolder.getContext().getAuthentication());
+
+        }
+
+        filterChain.doFilter(httpServletRequest,httpServletResponse);
 
     }
-
-    filterChain.doFilter(httpServletRequest,httpServletResponse);
-
-}
 
 }

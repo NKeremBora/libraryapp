@@ -28,7 +28,7 @@ public class BookMapper {
 
     public BookResponse toDto(Book book) {
         BookResponse resp = new BookResponse();
-        resp.setId(java.util.UUID.fromString(book.getId()));
+        resp.setId(book.getId());
         resp.setTitle(book.getTitle());
         resp.setAuthor(book.getAuthor());
         resp.setIsbn(book.getIsbn());

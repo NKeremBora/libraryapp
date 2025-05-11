@@ -6,7 +6,6 @@ import com.nihatkerembora.libraryapp.common.model.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
-import org.hibernate.annotations.UuidGenerator;
 
 import java.time.LocalDate;
 import java.util.HashSet;
@@ -24,7 +23,8 @@ import java.util.Set;
 public class Book extends BaseEntity {
 
     @Id
-    @UuidGenerator
+    @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name = "ID")
     private String id;
 
     private String title;

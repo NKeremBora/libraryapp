@@ -41,7 +41,7 @@ public class UserServiceImpl implements UserService {
     public CustomPage<User> getUsers(CustomPagingRequest pagingRequest, boolean includeDeleted) {
         Page<UserEntity> userPage = userRepository.findAllWithOptionalDeleted(includeDeleted, pagingRequest.toPageable());
 
-        final List<User> users = UserMapper.toDomainList(userPage.getContent()); //List<User>
+        final List<User> users = UserMapper.toDomainList(userPage.getContent());
 
         return CustomPage.of(users, userPage);
     }
@@ -64,7 +64,7 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new UserNotFoundException(id));
 
         if (userEntity.isDeleted()) {
-            throw new UserStatusNotValidException("User already marked as deleted!");
+            throw new UserStatusNotValidException();
         }
 
         userEntity.setDeleted(true);

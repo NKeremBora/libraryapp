@@ -5,6 +5,7 @@ import com.nihatkerembora.libraryapp.book.model.dto.request.BookCreateRequest;
 import com.nihatkerembora.libraryapp.book.model.dto.request.BookUpdateRequest;
 import com.nihatkerembora.libraryapp.book.model.dto.response.BookResponse;
 import com.nihatkerembora.libraryapp.book.service.BookService;
+import com.nihatkerembora.libraryapp.common.model.dto.response.CustomPagingResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.Valid;
@@ -14,6 +15,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -44,6 +46,7 @@ public class BookController {
                     @ApiResponse(responseCode = "409", description = "Book with same ISBN already exists")
             }
     )
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @PostMapping
     public ResponseEntity<BookResponse> addBook(
             @Valid @RequestBody BookCreateRequest request) {
@@ -84,7 +87,7 @@ public class BookController {
      * @param isbn    (Optional) ISBN of the book.
      * @param genre   (Optional) Genre name to filter books.
      * @param pageable Pagination and sorting information.
-     * @return A paginated {@link Page<BookResponse>} containing search results.
+     * @return A paginated {@link ResponseEntity<CustomPagingResponse<BookResponse>>} containing search results.
      */
     @Operation(
             summary = "Search books",
@@ -94,7 +97,7 @@ public class BookController {
             }
     )
     @GetMapping
-    public ResponseEntity<Page<BookResponse>> search(
+    public ResponseEntity<CustomPagingResponse<BookResponse>> search(
             @RequestParam(required = false) String title,
             @RequestParam(required = false) String author,
             @RequestParam(required = false) String isbn,
@@ -102,7 +105,8 @@ public class BookController {
             @PageableDefault(size = 20, sort = "title") Pageable pageable) {
 
         Page<BookResponse> page = bookService.search(title, author, isbn, genre, pageable);
-        return ResponseEntity.ok(page);
+        CustomPagingResponse<BookResponse> response = CustomPagingResponse.from(page);
+        return ResponseEntity.ok(response);
     }
 
     /**
@@ -121,6 +125,7 @@ public class BookController {
                     @ApiResponse(responseCode = "409", description = "Book with same ISBN already exists")
             }
     )
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<BookResponse> update(
             @PathVariable String id,
@@ -144,6 +149,7 @@ public class BookController {
                     @ApiResponse(responseCode = "404", description = "Book not found")
             }
     )
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @PutMapping("/{id}/soft-delete")
     public ResponseEntity<Void> delete(@PathVariable String id) {
         bookService.delete(id);
