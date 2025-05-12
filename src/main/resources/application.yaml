@@ -3,10 +3,9 @@ server:
 
 spring:
   datasource:
-    name: postgres
-    url: jdbc:postgresql://localhost:5432/librarydb
-    username: postgres
-    password: postgres
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
   jpa:
     properties:
       hibernate:
@@ -20,8 +19,8 @@ spring:
 springdoc:
   api-docs:
     enabled: true
-  show-actuator: true
   override-with-generic-response: false
+
 
 management:
   endpoints:

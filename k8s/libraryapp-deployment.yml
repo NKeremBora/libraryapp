@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: libraryapp
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: libraryapp
+  template:
+    metadata:
+      labels:
+        app: libraryapp
+    spec:
+      containers:
+        - name: libraryapp
+          image: nkerembora1030/libraryapp
+          ports:
+            - containerPort: 8080
+          envFrom:
+            - configMapRef:
+                name: libraryapp-config
+          env:
+            - name: DATABASE_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: DATABASE_USERNAME
+            - name: DATABASE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: DATABASE_PASSWORD
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: libraryapp-service
+  namespace: default
+spec:
+  selector:
+    app: libraryapp
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+  type: NodePort
