@@ -1,0 +1,511 @@
+{
+	"info": {
+		"_postman_id": "cb875a41-b3d7-4556-9d9f-80370b22508a",
+		"name": "LibraryApp",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "38046006"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"testuser22@example.com\",\n    \"password\": \"12345678\",\n    \"firstName\": \"Test\",\n    \"lastName\": \"Test\",\n    \"phoneNumber\": \"05314924863\",\n    \"userType\": \"ADMIN\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}{{API_PREFIX_AUTH}}/register",
+							"host": [
+								"{{BASE_URL}}{{API_PREFIX_AUTH}}"
+							],
+							"path": [
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"testuser22@example.com\",\n    \"password\": \"12345678\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}{{API_PREFIX_AUTH}}/auth/login",
+							"host": [
+								"{{BASE_URL}}{{API_PREFIX_AUTH}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "RefreshToken",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"refreshToken\": \"eyJ0eXAiOiJCZWFyZXIiLCJhbGciOiJSUzI1NiJ9.eyJqdGkiOiJkMWYxNjdkYS00YjQ5LTRhZjQtOGIxYy05ZGFmYzBiZDg1ZmIiLCJpc3MiOiJJU1NVRVIiLCJpYXQiOjE3NDY3MDEyODMsImV4cCI6MTc0Njc4NzY4MywidXNlcklkIjoiNmRhYzIwZjUtZTIxOC00OTc5LWI3ODctMTIwZTUyMTQ1Y2U4In0.BrXcYJp1pmpy0nKnnWX0yvBxRBzf5HMhb_EQ8ywhuqmW7Ze14dyrMz5ky6yLCA1qDtT3QWiYM4rh3xmICoFu_DrXUlOle4A3X2a72Lw1llI_ch27sntNtKKRp2LiUO0xdT9hl_ogCbDSEB-M6QrxWAoS7EVBOu7OcAptJyMCtRMDIFplXT9Wqwu1fdSZ_9qE0zDbOQmHDSu3Y5tujd9Yr5n3_aXZF6QenKR6DUwAEtY8NPz3pzprLxYJ_WgmYscXkfaJaJRj3GliejOmqLASkqQ4lPnAghLkNm83FKs_TNorzbnE8uO7BahwdDuuGTL54_EJwdY9UsJEtlL-af1GTA\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}{{API_PREFIX_AUTH}}/refresh-token",
+							"host": [
+								"{{BASE_URL}}{{API_PREFIX_AUTH}}"
+							],
+							"path": [
+								"refresh-token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"accessToken\": \"eyJ0eXAiOiJCZWFyZXIiLCJhbGciOiJSUzI1NiJ9.eyJqdGkiOiI2YjY5N2Y5Mi0wZjhhLTRmNjUtOWMzYy0yYWRiNzE2Y2NlODIiLCJpc3MiOiJJU1NVRVIiLCJpYXQiOjE3NDY3MDEyODMsImV4cCI6MTc0NjcwMzA4MywidXNlclN0YXR1cyI6IkFDVElWRSIsInVzZXJMYXN0TmFtZSI6IlRlc3QiLCJ1c2VyRW1haWwiOiJ0ZXN0dXNlcjIyQGV4YW1wbGUuY29tIiwidXNlclR5cGUiOiJBRE1JTiIsInVzZXJGaXJzdE5hbWUiOiJUZXN0IiwidXNlcklkIjoiNmRhYzIwZjUtZTIxOC00OTc5LWI3ODctMTIwZTUyMTQ1Y2U4In0.cvDinIe0YEXtSmD8WKmdtKlYGqI9MKD-FJm8CCCf2O0tER4b_YrJSSxs-T5n-xulbuO2vG8NlBqQrDNn5ukpdgGyPEfutv6maxiuDQVkuaChitr3xVoxfZ3OTzpr0i0IreGncwjLDhL_cRH6gA36mNeb_pfA0Pr70e9YT-6vnsUpYdyqps5-pGKTDdoZWdWjey_9CuNd0RA6tjdeWYyNBmpcXjgxkIo3Eq9L2jGJYzBXds5AGyfcc7lXIoO6OVHLgKc0ABYAUHPEt84qf9cf_H4I4qEC7kwCK_8jvXTadvIGJY7cjHwzubjNzWEkL3vr6MRQp3p90yRzHiqajEkzYA\",\n        \"refreshToken\": \"eyJ0eXAiOiJCZWFyZXIiLCJhbGciOiJSUzI1NiJ9.eyJqdGkiOiJkMWYxNjdkYS00YjQ5LTRhZjQtOGIxYy05ZGFmYzBiZDg1ZmIiLCJpc3MiOiJJU1NVRVIiLCJpYXQiOjE3NDY3MDEyODMsImV4cCI6MTc0Njc4NzY4MywidXNlcklkIjoiNmRhYzIwZjUtZTIxOC00OTc5LWI3ODctMTIwZTUyMTQ1Y2U4In0.BrXcYJp1pmpy0nKnnWX0yvBxRBzf5HMhb_EQ8ywhuqmW7Ze14dyrMz5ky6yLCA1qDtT3QWiYM4rh3xmICoFu_DrXUlOle4A3X2a72Lw1llI_ch27sntNtKKRp2LiUO0xdT9hl_ogCbDSEB-M6QrxWAoS7EVBOu7OcAptJyMCtRMDIFplXT9Wqwu1fdSZ_9qE0zDbOQmHDSu3Y5tujd9Yr5n3_aXZF6QenKR6DUwAEtY8NPz3pzprLxYJ_WgmYscXkfaJaJRj3GliejOmqLASkqQ4lPnAghLkNm83FKs_TNorzbnE8uO7BahwdDuuGTL54_EJwdY9UsJEtlL-af1GTA\"\n    }\n        ",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}{{API_PREFIX_AUTH}}/logout",
+							"host": [
+								"{{BASE_URL}}{{API_PREFIX_AUTH}}"
+							],
+							"path": [
+								"logout"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "GetAllUsers",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJCZWFyZXIiLCJhbGciOiJSUzI1NiJ9.eyJqdGkiOiI3YTkzMjE3Zi1lZmMzLTQ5ZjItOGQ0Ny0wZDdjMzhkNDYzYTciLCJpc3MiOiJJU1NVRVIiLCJpYXQiOjE3NDY3MDE1NDMsImV4cCI6MTc0NjcwMzM0MywidXNlclN0YXR1cyI6IkFDVElWRSIsInVzZXJMYXN0TmFtZSI6IlRlc3QiLCJ1c2VyRW1haWwiOiJ0ZXN0dXNlcjIyQGV4YW1wbGUuY29tIiwidXNlclR5cGUiOiJBRE1JTiIsInVzZXJGaXJzdE5hbWUiOiJUZXN0IiwidXNlcklkIjoiNmRhYzIwZjUtZTIxOC00OTc5LWI3ODctMTIwZTUyMTQ1Y2U4In0.HKl4V5TY_tuOtgcFuwR01bOkeKK9aKj7ccTnCxcS0qKaaA_wAMU26K7rQQ6cxrY4174O2HLm-B7o_AcvnJl6GlmpvUpZ66cjgQ7agv6EwUix1Y7Slb80IsUinISs9teE-Yiy0FleEv4OyUEjfw4IXAkG1N2L24KPr5yPpWdAIJQL4_8xy1xOvV8ThDYr0ixrioUmhgFHEa2gVaWeBiIqKbhAD9fTzCOrv_7AHg46IJumYauoF4d1oAqXtFDTDa1Enk3SDlThL7R_SaH1pxE9fu9J1KcpDWfnyavnxArgUbZ6aOLvhO-SXlj9jJuy02mPPISMGuCIt8cQc3DidM9VYQ",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}{{API_PREFIX_USER}}?pageNumber=0&pageSize=10&includeDeleted=false",
+							"host": [
+								"{{BASE_URL}}{{API_PREFIX_USER}}"
+							],
+							"query": [
+								{
+									"key": "pageNumber",
+									"value": "0"
+								},
+								{
+									"key": "pageSize",
+									"value": "10"
+								},
+								{
+									"key": "includeDeleted",
+									"value": "false"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetUserById",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateUser",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteUser",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Book",
+			"item": [
+				{
+					"name": "CreateGenre",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Anime\",\n  \"description\": \"a style of Japanese film and television animation\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}{{API_PREFIX_GENRES}}",
+							"host": [
+								"{{BASE_URL}}{{API_PREFIX_GENRES}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetGenres",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}{{API_PREFIX_GENRES}}",
+							"host": [
+								"{{BASE_URL}}{{API_PREFIX_GENRES}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetGenre",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}{{API_PREFIX_GENRES}}/067d7405-9d63-4e9a-a9a1-40ada2d79cb9",
+							"host": [
+								"{{BASE_URL}}{{API_PREFIX_GENRES}}"
+							],
+							"path": [
+								"067d7405-9d63-4e9a-a9a1-40ada2d79cb9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateGenre",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\":\"New Genre\",\n  \"description\": \"New Genre description\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}{{API_PREFIX_GENRES}}/067d7405-9d63-4e9a-a9a1-40ada2d79cb9",
+							"host": [
+								"{{BASE_URL}}{{API_PREFIX_GENRES}}"
+							],
+							"path": [
+								"067d7405-9d63-4e9a-a9a1-40ada2d79cb9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteGenre",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}{{API_PREFIX_GENRES}}9a5c82b4-b02f-4da7-b2bf-90b488cae273",
+							"host": [
+								"{{BASE_URL}}{{API_PREFIX_GENRES}}9a5c82b4-b02f-4da7-b2bf-90b488cae273"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateBook",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "GetBook",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}{{API_PREFIX_BOOKS}}/9c24771f-65f8-4706-8858-61843f17d2f1",
+							"host": [
+								"{{BASE_URL}}{{API_PREFIX_BOOKS}}"
+							],
+							"path": [
+								"9c24771f-65f8-4706-8858-61843f17d2f1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetBooks",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateBook",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "stream",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}{{API_PREFIX_BOOKS}}/availability/stream",
+							"host": [
+								"{{BASE_URL}}{{API_PREFIX_BOOKS}}"
+							],
+							"path": [
+								"availability",
+								"stream"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Borrowing",
+			"item": [
+				{
+					"name": "BorrowBook",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "ReturnBook",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}{{API_PREFIX_BORROWING}}/adb71ef9-cec9-44d8-a7a1-2b0859999364",
+							"host": [
+								"{{BASE_URL}}{{API_PREFIX_BORROWING}}"
+							],
+							"path": [
+								"adb71ef9-cec9-44d8-a7a1-2b0859999364"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetBorrowing",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Overdue",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"value": "",
+			"type": "string",
+			"disabled": true
+		},
+		{
+			"key": "BASE_URL",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "API_PREFIX",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "API_PREFIX_AUTH",
+			"value": "/api/v1/auth",
+			"type": "default"
+		},
+		{
+			"key": "API_PREFIX_USER",
+			"value": "/api/v1/user",
+			"type": "default"
+		},
+		{
+			"key": "TOKEN",
+			"value": "Bearer eyJ0eXAiOiJCZWFyZXIiLCJhbGciOiJSUzI1NiJ9.eyJqdGkiOiI1OTExMDk2My05YjUzLTQwZWQtOTI0Ny02ODc4Yzc2NGI2ODQiLCJpc3MiOiJJU1NVRVIiLCJpYXQiOjE3NDY5MTYxNjQsImV4cCI6MTc0NjkxNzk2NCwidXNlclN0YXR1cyI6IkFDVElWRSIsInVzZXJMYXN0TmFtZSI6IlRlc3QiLCJ1c2VyRW1haWwiOiJ0ZXN0dXNlcjIzQGV4YW1wbGUuY29tIiwidXNlclR5cGUiOiJBRE1JTiIsInVzZXJGaXJzdE5hbWUiOiJUZXN0IiwidXNlcklkIjoiZTA5Y2Q5ZjQtYzEzOS00MWIxLThhMTEtYmMwOWI3M2QxMTVmIn0.ysJIPxx6eS82fJUIPx83O9YV2lcGyEVa1hKVx2X_xIlCIsMF4o2vCqjxGj0gjxB73GK7rLo01bBRZbVMFwYDz0TcIfg-ehpt69-LJxRMNFeg_7PQd2gCJ-tHIM7vOCl5fs8zuh94jl5rjWWSbkd6WDRkC2e2qfV-WxvdezxMKbpTsGJYvW4mMQKFgEBOCc5f6X1zikr1DdKQMbznHZP-0Bk4kVhehyq5aIa2jgdHBJyMNidL-WNzTqM9tP28pCHvUV2RreAUMY364qJxMwo7_iaefK9XcJwo9pXjNUxP59m5uLkJdRedEfrvVjkmxzGe1MHP82a2eiJT7yIFkIbk_Q",
+			"type": "default"
+		},
+		{
+			"key": "API_PREFIX_GENRES",
+			"value": "/api/v1/genres",
+			"type": "default"
+		},
+		{
+			"key": "API_PREFIX_BOOKS",
+			"value": "api/v1/books",
+			"type": "default"
+		},
+		{
+			"key": "API_PREFIX_BORROWING",
+			"value": "api/v1/borrowings",
+			"type": "default"
+		}
+	]
+}
