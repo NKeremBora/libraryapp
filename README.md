@@ -1,24 +1,33 @@
-# Library App
+# Library App — Project Overview
 
-## 📖 Information
-
-**Authentication:**
-
-All users must register before accessing book borrowing, returning, or administrative endpoints. Upon successful login, the system issues an access token and a refresh token using JWT. A dedicated endpoint is provided to refresh tokens when the access token expires. Logging out will invalidate the refresh token, effectively terminating the session. Role-based access is enforced through Spring Security, ensuring that sensitive operations are restricted to authorized roles. The system responds with appropriate HTTP status codes: 200 for successful operations, 400 for invalid input, 401 for unauthorized access, and 409 for resource conflicts such as duplicate entries.
-
-**Book Management:**
-
-Librarians are responsible for adding new books to the system. Each book entry includes details such as the title, author, ISBN, publication date, and genre. All inputs are validated before persistence to ensure data integrity. Both librarians and patrons can view detailed information about books and perform searches using filters like title, author, ISBN, or genre. All search operations support pagination to handle large result sets efficiently. Book updates and deletions are restricted to librarian users. Duplicate ISBNs are not allowed and will result in a 409 Conflict.
-
-**User Management:**
-
-The system allows users to register by submitting personal information including name and contact details. Upon registration, each user is assigned a role: either PATRON or LIBRARIAN. Librarians have elevated permissions, which include viewing, updating, and deleting other users’ profiles. Role-based access controls ensure that patrons cannot perform administrative operations. Authentication is mandatory for all protected resources, and access rights are evaluated using JWT tokens.
-
-**Borrowing and Returning:** 
-
-Patrons can borrow available books, with the system recording both the borrowing date and the due date. Before completing the borrowing operation, the system validates that the book is available and that the patron is eligible to borrow more books. Returning a book updates the system to reflect the book’s availability and closes the borrowing record. Users can view their personal borrowing history at any time, while librarians have the ability to access the full borrowing history of all users. The system also tracks overdue books and allows librarians to generate detailed reports for follow-up actions.
+The Library App is a Spring Boot back-end that manages a complete lending workflow for books. It combines secure, token-based authentication with strictly separated business modules so that librarians and patrons can perform their day-to-day tasks through a clear and well-protected REST API.
 
 
+### Auth Module
+
+New users register with basic personal details, then log in to receive a short-lived access token and a long-lived refresh token. A dedicated endpoint renews access tokens, while logout immediately invalidates the refresh token. Spring Security enforces role checks, returning 200 OK on success, 400 Bad Request for bad input, 401 Unauthorized for missing or invalid credentials, and 409 Conflict for clashes such as duplicate e-mail addresses.
+
+### Book Module
+
+Librarians create, update and delete book records that store title, author, ISBN, publication date and genre. Every write operation passes validation, and duplicate ISBNs produce a 409 Conflict. Both librarians and patrons can list or search books—with full-text and filter options—using paginated endpoints, so large catalogues remain responsive.
+
+### User Module
+
+During registration each account is labelled as either PATRON or LIBRARIAN. Patrons can view and edit only their own profile, whereas librarians may list, update or remove any user. All such operations rely on JWT claims, ensuring patrons can never reach administrative routes.
+
+### Borrowing Module
+
+Patrons request a borrow; the system checks that the book is available and the borrower has not exceeded their quota, then records borrow and due dates. Returning a book updates inventory and closes the record. Patrons can view their own history; librarians can inspect every user’s history, see overdue items, and generate follow-up reports.
+
+### Security & Access Control
+- All protected endpoints require a valid JWT access token; roles are checked via Spring Security.
+- Librarian privileges gate any operation that modifies shared data (books, other users, system-wide reports).
+- Standard HTTP status codes communicate success and error conditions clearly.
+
+### Observability & Ops
+- Centralized request logging (correlation IDs) is persisted in the database.
+- JVM, HTTP, and SQL metrics are exposed through Micrometer, scraped by Prometheus and visualised in Grafana using the Micrometer dashboard.
+- Ready-to-run configurations are provided for both docker-compose and Kubernetes / Minikube deployments.
 
 ### Technologies
 
