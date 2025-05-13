@@ -265,7 +265,9 @@ minikube service prometheus-service
 ```sh
 minikube service grafana-service
 ```
-### JaCoCo (Test Report)
+
+### ### JaCoCo (Test Report)
+---
 
 After running mvn clean install, JaCoCo generates an HTML coverage report at:
 ```
@@ -275,5 +277,181 @@ target/site/jacoco/index.html
 	2.Launch index.html in your web browser.
 
  You’ll see a detailed breakdown of line, branch, and method coverage for every module and class in the project.
-
+<p align="center">
+    <img src="images/jacocoTest.png" height="600" >
+</p>
 ---
+
+### API Request Samples (Postman)
+#### Borrow Book
+// explain with english 
+<p align="center">
+  <img src="images/BorrowBook.png" height="500">
+</p>
+
+#### CreateBook
+<p align="center">
+  <img src="images/CreateBook.png" height="500">
+</p>
+
+#### Borrow Book  
+Allows a user to borrow a book by providing the book ID and user credentials.  
+
+<p align="center">
+  <img src="images/BorrowBook.png" height="500">
+</p>
+
+#### Create Book  
+Used by librarians to add a new book to the system with details like title, author, and ISBN.  
+
+<p align="center">
+  <img src="images/CreateBook.png" height="500">
+</p>
+
+#### Create Genre  
+Allows a librarian to create a new genre category for books.  
+
+<p align="center">
+  <img src="images/CreateGenre.png" height="500">
+</p>
+
+#### Delete Genre  
+Removes a genre from the system. Only accessible by librarian roles.  
+
+<p align="center">
+  <img src="images/DeleteGenre.png" height="500">
+</p>
+
+#### Delete User  
+Soft-deletes a user account. Typically used by librarians.  
+
+<p align="center">
+  <img src="images/DeleteUser.png" height="500">
+</p>
+
+#### Get Book  
+Retrieves detailed information about a specific book by its ID.  
+
+<p align="center">
+  <img src="images/GetBook.png" height="500">
+</p>
+
+#### Get Books  
+Fetches a paginated list of books with optional filters like title, genre, or author.  
+
+<p align="center">
+  <img src="images/GetBooks.png" height="500">
+</p>
+
+#### Get Borrowing  
+Fetches borrowing details for a specific record.  
+
+<p align="center">
+  <img src="images/GetBorrowing.png" height="500">
+</p>
+
+#### Get Genre  
+Fetches details of a specific genre by ID.  
+
+<p align="center">
+  <img src="images/GetGenre.png" height="500">
+</p>
+
+#### Get Genres  
+Returns a list of all genres with pagination support.  
+
+<p align="center">
+  <img src="images/GetGenres.png" height="500">
+</p>
+
+#### Get User  
+Retrieves a user's details by their ID.  
+
+<p align="center">
+  <img src="images/GetUser.png" height="500">
+</p>
+
+#### Get Users  
+Returns a paginated list of users in the system.  
+
+<p align="center">
+  <img src="images/GetUsers.png" height="500">
+</p>
+
+#### Login  
+Authenticates a user and returns JWT access and refresh tokens.  
+
+<p align="center">
+  <img src="images/Login.png" height="500">
+</p>
+
+#### Logout  
+Invalidates the user's refresh token to log them out.  
+
+<p align="center">
+  <img src="images/Logout.png" height="500">
+</p>
+
+#### Refresh Token  
+Issues a new access token using a valid refresh token.  
+
+<p align="center">
+  <img src="images/RefreshToken.png" height="500">
+</p>
+
+#### Return Book  
+Marks a borrowed book as returned and updates availability.  
+
+<p align="center">
+  <img src="images/ReturnBook.png" height="500">
+</p>
+
+#### Stream 1  
+Streams book availability updates via Server-Sent Events (SSE).  
+
+<p align="center">
+  <img src="images/Stream-1.png" height="500">
+</p>
+
+#### Stream 2  
+Alternative view for streaming real-time book availability.  
+
+<p align="center">
+  <img src="images/Sream-2.png" height="500">
+</p>
+
+#### Update Book  
+Updates an existing book's details. Only librarians can perform this.  
+
+<p align="center">
+  <img src="images/UpdateBook.png" height="500">
+</p>
+
+#### Update Genre  
+Modifies an existing genre’s name or attributes.  
+
+<p align="center">
+  <img src="images/UpdateGenre.png" height="500">
+</p>
+
+#### Update User  
+Used to update user profile information such as name or contact.  
+
+<p align="center">
+  <img src="images/UpdateUser.png" height="500">
+</p>
+
+
+#### Overdue Borrowings  
+PDF report of overdue borrowings, accessible by librarians.  
+
+<p align="center">
+  <img src="images/overdue.png" height="500">
+</p>
+
+#### Grafana Dashboard  
+Shows application metrics visualized via Grafana dashboards.  
+
+<p align="center">
+  <img src="images/grafana-dashboard.png" height="500">
+</p>
